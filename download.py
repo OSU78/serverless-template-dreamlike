@@ -11,14 +11,15 @@ def download_model():
     scheduler = EulerDiscreteScheduler.from_pretrained(
         repo_id, 
         subfolder="scheduler", 
-        prediction_type="v_prediction"
+        prediction_type="epsilon"
     )
     model = StableDiffusionPipeline.from_pretrained(
         repo_id, 
-        torch_dtype=torch.float16, 
-        revision="fp16", 
+        torch_dtype=torch.float16,
         scheduler=scheduler
     )
+    
+    
 
 if __name__ == "__main__":
     download_model()
