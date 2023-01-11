@@ -14,9 +14,9 @@ def init():
     scheduler = EulerDiscreteScheduler.from_pretrained(
         repo_id, 
         subfolder="scheduler", 
-        prediction_type="v_prediction"
+        prediction_type="epsilon"
     )
-    model = StableDiffusionPipeline.from_pretrained(repo_id, torch_dtype=torch.float16, revision="fp16", scheduler=scheduler).to("cuda")
+    model = StableDiffusionPipeline.from_pretrained(repo_id, torch_dtype=torch.float16, scheduler=scheduler).to("cuda")
 
 # Inference is ran for every server call
 # Reference your preloaded global model variable here.
