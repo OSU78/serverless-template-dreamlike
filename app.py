@@ -10,7 +10,7 @@ from diffusers import StableDiffusionPipeline, EulerDiscreteScheduler
 def init():
     global model
 
-    repo_id = "stabilityai/stable-diffusion-2"
+    repo_id = "dreamlike-art/dreamlike-diffusion-1.0"
     scheduler = EulerDiscreteScheduler.from_pretrained(
         repo_id, 
         subfolder="scheduler", 
