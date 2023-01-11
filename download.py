@@ -13,7 +13,7 @@ def download_model():
     #   subfolder="scheduler", 
     #    prediction_type="epsilon"
     #)
-    model = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float16)
+    model = StableDiffusionPipeline.from_pretrained(repo_id, torch_dtype=torch.float16)
     
     
 
