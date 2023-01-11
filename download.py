@@ -7,7 +7,7 @@ from diffusers import StableDiffusionPipeline, EulerDiscreteScheduler
 def download_model():
     # do a dry run of loading the huggingface model, which will download weights at build time
 
-    repo_id = "stabilityai/stable-diffusion-2"
+    repo_id = "dreamlike-art/dreamlike-diffusion-1.0"
     scheduler = EulerDiscreteScheduler.from_pretrained(
         repo_id, 
         subfolder="scheduler", 
