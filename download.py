@@ -8,16 +8,12 @@ def download_model():
     # do a dry run of loading the huggingface model, which will download weights at build time
 
     repo_id = "dreamlike-art/dreamlike-diffusion-1.0"
-    scheduler = EulerDiscreteScheduler.from_pretrained(
-        repo_id, 
-        subfolder="scheduler", 
-        prediction_type="epsilon"
-    )
-    model = StableDiffusionPipeline.from_pretrained(
-        repo_id, 
-        torch_dtype=torch.float16,
-        scheduler=scheduler
-    )
+    #scheduler = EulerDiscreteScheduler.from_pretrained(
+    #   repo_id, 
+    #   subfolder="scheduler", 
+    #    prediction_type="epsilon"
+    #)
+    model = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float16)
     
     
 
