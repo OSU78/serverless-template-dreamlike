@@ -1,6 +1,6 @@
 # Must use a Cuda version 11+
 FROM pytorch/pytorch:1.12.1-cuda11.3-cudnn8-runtime
-
+ENV HF_AUTH_TOKEN="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"
 WORKDIR /
 
 # Install git
