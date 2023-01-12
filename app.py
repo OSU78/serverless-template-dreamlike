@@ -3,6 +3,7 @@ import torch
 import base64
 from io import BytesIO
 from torch import autocast
+import random
 from diffusers import StableDiffusionPipeline, EulerDiscreteScheduler
 
 # Init is ran on server startup
@@ -22,7 +23,7 @@ def init():
 # Reference your preloaded global model variable here.
 def inference(model_inputs:dict) -> dict:
     global model
-
+    random_number = random.randint(1000, 99000)
     # Parse out your arguments
     prompt = model_inputs.get('prompt', None)
     negative = model_inputs.get('negative', None)
@@ -30,7 +31,7 @@ def inference(model_inputs:dict) -> dict:
     width = model_inputs.get('width', 768)
     num_inference_steps = model_inputs.get('num_inference_steps', 20)
     guidance_scale = model_inputs.get('guidance_scale', 7)
-    input_seed = model_inputs.get("seed", 1632853349)
+    input_seed = model_inputs.get("seed", random_number)
     
     #If "seed" is not sent, we won't specify a seed in the call
     generator = None
@@ -49,4 +50,4 @@ def inference(model_inputs:dict) -> dict:
     image_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
 
     # Return the results as a dictionary
-    return {'image_base64': image_base64}
+    return {'seed':random_number,'image_base64': image_base64}
