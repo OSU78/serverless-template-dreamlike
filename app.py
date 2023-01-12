@@ -23,7 +23,7 @@ def init():
 # Reference your preloaded global model variable here.
 def inference(model_inputs:dict) -> dict:
     global model
-    random_number = random.randint(1000, 99000)
+    random_number = random.randint(100, 180000)
     # Parse out your arguments
     prompt = model_inputs.get('prompt', None)
     negative = model_inputs.get('negative', None)
