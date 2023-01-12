@@ -60,4 +60,23 @@ def inference(model_inputs:dict) -> dict:
     image_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
 
     # Return the results as a dictionary
-    return {'seed':random_number,'image_base64': image_base64}
+    return {'seed':random_number,sampler : scheduler ;'image_base64': image_base64}
+
+
+
+def make_scheduler(name):
+    return {
+        "PNDM": PNDMScheduler(
+            beta_start=0.00085, beta_end=0.012, beta_schedule="scaled_linear"
+        ),
+        "K-LMS": LMSDiscreteScheduler(
+            beta_start=0.00085, beta_end=0.012, beta_schedule="scaled_linear"
+        ),
+        "DDIM": DDIMScheduler(
+            beta_start=0.00085,
+            beta_end=0.012,
+            beta_schedule="scaled_linear",
+            clip_sample=False,
+            set_alpha_to_one=False,
+        ),
+    }[name]
