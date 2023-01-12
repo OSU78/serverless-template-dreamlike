@@ -58,7 +58,7 @@ def inference(model_inputs:dict) -> dict:
     num_inference_steps = model_inputs.get('num_inference_steps', 20)
     guidance_scale = model_inputs.get('guidance_scale', 7)
     input_seed = model_inputs.get("seed", random_number)
-    scheduler =model_inputs.get("sample", "DDIM") 
+    scheduler = model_inputs.get("sample", "DDIM") 
     #choices=["DDIM", "K-LMS", "PNDM"],
     model.scheduler=make_scheduler(scheduler)
     #If "seed" is not sent, we won't specify a seed in the call
