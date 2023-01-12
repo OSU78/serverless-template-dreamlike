@@ -4,20 +4,28 @@ import base64
 from io import BytesIO
 from torch import autocast
 import random
-from diffusers import StableDiffusionPipeline, EulerDiscreteScheduler
-
+from diffusers import (
+    StableDiffusionPipeline, 
+    EulerDiscreteScheduler,
+    PNDMScheduler,
+    LMSDiscreteScheduler,
+    DDIMScheduler,
+    StableDiffusionPipeline,
+    StableDiffusionImg2ImgPipeline,
+    StableDiffusionInpaintPipelineLegacy,
+)
 # Init is ran on server startup
 # Load your model to GPU as a global variable here using the variable name "model"
 def init():
     global model
 
     repo_id = "dreamlike-art/dreamlike-diffusion-1.0"
-    scheduler = EulerDiscreteScheduler.from_pretrained(
-        repo_id, 
-        subfolder="scheduler", 
-        prediction_type="epsilon"
-    )
-    model = StableDiffusionPipeline.from_pretrained(repo_id, torch_dtype=torch.float16, scheduler=scheduler).to("cuda")
+    #scheduler = EulerDiscreteScheduler.from_pretrained(
+    #   repo_id, 
+    #   subfolder="scheduler", 
+    #    prediction_type="epsilon"
+    #)
+    model = StableDiffusionPipeline.from_pretrained(repo_id, torch_dtype=torch.float16).to("cuda")
 
 # Inference is ran for every server call
 # Reference your preloaded global model variable here.
@@ -32,7 +40,9 @@ def inference(model_inputs:dict) -> dict:
     num_inference_steps = model_inputs.get('num_inference_steps', 20)
     guidance_scale = model_inputs.get('guidance_scale', 7)
     input_seed = model_inputs.get("seed", random_number)
-    
+    scheduler =model_inputs.get("sample", "DDIM") 
+    #choices=["DDIM", "K-LMS", "PNDM"],
+    model.scheduler=make_scheduler(scheduler)
     #If "seed" is not sent, we won't specify a seed in the call
     generator = None
     if input_seed != None:
